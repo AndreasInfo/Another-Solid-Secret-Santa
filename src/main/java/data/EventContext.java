@@ -12,12 +12,13 @@ public class EventContext {
     private static final Logger LOG = LogManager.getLogger();
 
     private final List<Participant> participants = new ArrayList<>();
+    private final List<Constraint> constraints = new ArrayList<>();
     private String location;
     private String date;
     private Double budget;
 
     private final SecretSantaStrategy strategy = new ShuffleStrategy();
-    private List<String> secretSantas = new ArrayList<>();
+    private List<Participant> secretSantas = new ArrayList<>();
 
     public EventContext() {
     }
@@ -28,7 +29,22 @@ public class EventContext {
 
     public void addParticipant(Participant participant) {
         participants.add(participant);
-        setSecretSantas(strategy.assign(getParticipants()));
+        setSecretSantas(strategy.assign(getParticipants(), getConstraints()));
+    }
+
+    public List<Constraint> getConstraints() {
+        return new ArrayList<>(constraints);
+    }
+
+    public void addConstraint(Constraint constraint) {
+        constraints.add(constraint);
+        setSecretSantas(strategy.assign(getParticipants(), getConstraints()));
+
+        if (isEmptySecretSantas()) {
+            System.out.println("CAUTION: Removed last constraint, because could not assign Secret Santas!");
+            constraints.removeLast();
+            setSecretSantas(strategy.assign(getParticipants(), getConstraints()));
+        }
     }
 
     public String getLocation() {
@@ -55,16 +71,20 @@ public class EventContext {
         this.budget = budget;
     }
 
-    public List<String> getSecretSantas() {
+    public List<Participant> getSecretSantas() {
         return secretSantas;
     }
 
-    public void setSecretSantas(List<String> secretSantas) {
+    public void setSecretSantas(List<Participant> secretSantas) {
         this.secretSantas = secretSantas;
     }
 
+    public boolean isEmptySecretSantas() {
+        return getSecretSantas().isEmpty();
+    }
+
     public void printResult() {
-        if (getSecretSantas().isEmpty()) {
+        if (isEmptySecretSantas()) {
             LOG.warn("No result present yet!");
             return;
         }

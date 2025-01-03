@@ -1,9 +1,10 @@
 package strategy;
 
+import data.Constraint;
 import data.Participant;
 
 import java.util.List;
 
 public interface SecretSantaStrategy {
-    List<String> assign(List<Participant> participants);
+    List<Participant> assign(List<Participant> participants, List<Constraint> constraints);
 }

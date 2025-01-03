@@ -7,11 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventCreationChain {
-    private final List<AbstractHandler> steps;
-
-    public EventCreationChain() {
-        this.steps = new ArrayList<>();
-    }
+    private final List<AbstractHandler> steps = new ArrayList<>();
 
     public void addStep(AbstractHandler step) {
         steps.add(step);

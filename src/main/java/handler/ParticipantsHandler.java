@@ -11,7 +11,7 @@ public class ParticipantsHandler extends AbstractHandler {
     @Override
     public void handle(EventContext context) {
         // Add minimum participants
-        while (context.getSecretSantas().isEmpty()) {
+        while (context.isEmptySecretSantas()) {
             addParticipant(context);
         }
 
@@ -33,7 +33,7 @@ public class ParticipantsHandler extends AbstractHandler {
     }
 
     private void addParticipant(EventContext context) {
-        System.out.println("Create participant");
+        System.out.println("Add participant");
 
         String name = askForName(context);
         String mail = askForMail();
@@ -44,7 +44,7 @@ public class ParticipantsHandler extends AbstractHandler {
 
     private String askForName(EventContext context) {
         while (true) {
-            System.out.println("Add name: ");
+            System.out.println("Name: ");
             String userInput = scanner.nextLine().trim();
 
             if (userInput.isEmpty()) {
@@ -59,7 +59,7 @@ public class ParticipantsHandler extends AbstractHandler {
 
     private String askForMail() {
         while (true) {
-            System.out.println("Add mail: ");
+            System.out.println("Mail: ");
             String userInput = scanner.nextLine().trim();
 
             String emailRegex = "^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,}$";

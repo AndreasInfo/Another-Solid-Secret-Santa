@@ -1,3 +1,4 @@
+import handler.ConstraintsHandler;
 import handler.ParticipantsHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +19,7 @@ public class Main {
 
         EventCreationChain chain = new EventCreationChain();
         chain.addStep(new ParticipantsHandler());
-//        chain.addStep(new AddRestrictionStep());
+        chain.addStep(new ConstraintsHandler());
 //        chain.addStep(new LocationHandler());
 //        chain.addStep(new DateHandler());
 //        chain.addStep(new BudgetHandler());
