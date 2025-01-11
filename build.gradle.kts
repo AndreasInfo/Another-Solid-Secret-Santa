@@ -7,7 +7,7 @@ description = "another-solid-secret-santa"
 java.sourceCompatibility = JavaVersion.VERSION_23
 
 application {
-    mainClass = "Main"
+    mainClass = "de.amrim.Main"
 }
 
 repositories {

@@ -1,9 +1,9 @@
-package data;
+package de.amrim.data;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import strategy.ShuffleStrategy;
-import strategy.SecretSantaStrategy;
+import de.amrim.strategy.ShuffleStrategy;
+import de.amrim.strategy.SecretSantaStrategy;
 
 import java.util.ArrayList;
 import java.util.List;

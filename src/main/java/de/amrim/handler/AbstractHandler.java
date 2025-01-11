@@ -1,6 +1,6 @@
-package handler;
+package de.amrim.handler;
 
-import data.EventContext;
+import de.amrim.data.EventContext;
 
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ public abstract class AbstractHandler {
     protected final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Performs the handler's logic.
+     * Performs the de.handy_solutions.handler's logic.
      *
      * @param context event context on which the step operates
      */

@@ -1,7 +1,7 @@
-package strategy;
+package de.amrim.strategy;
 
-import data.Constraint;
-import data.Participant;
+import de.amrim.data.Constraint;
+import de.amrim.data.Participant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

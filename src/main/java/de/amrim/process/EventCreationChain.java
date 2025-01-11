@@ -1,7 +1,7 @@
-package process;
+package de.amrim.process;
 
-import data.EventContext;
-import handler.AbstractHandler;
+import de.amrim.data.EventContext;
+import de.amrim.handler.AbstractHandler;
 
 import java.util.ArrayList;
 import java.util.List;

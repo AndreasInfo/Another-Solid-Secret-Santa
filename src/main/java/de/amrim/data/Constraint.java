@@ -1,4 +1,4 @@
-package data;
+package de.amrim.data;
 
 public class Constraint {
     Type type;

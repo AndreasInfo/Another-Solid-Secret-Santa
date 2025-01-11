@@ -1,6 +1,6 @@
-package handler;
+package de.amrim.handler;
 
-import data.EventContext;
+import de.amrim.data.EventContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

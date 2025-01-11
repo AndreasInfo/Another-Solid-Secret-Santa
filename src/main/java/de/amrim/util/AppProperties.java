@@ -1,4 +1,4 @@
-package util;
+package de.amrim.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

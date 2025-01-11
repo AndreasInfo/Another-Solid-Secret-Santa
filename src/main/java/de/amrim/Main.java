@@ -1,8 +1,10 @@
-import data.EventContext;
-import handler.MailHandler;
+package de.amrim;
+
+import de.amrim.data.EventContext;
+import de.amrim.handler.MailHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import process.EventCreationChain;
+import de.amrim.process.EventCreationChain;
 
 
 public class Main {

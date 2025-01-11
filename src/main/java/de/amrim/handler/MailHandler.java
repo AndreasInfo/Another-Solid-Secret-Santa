@@ -1,7 +1,7 @@
-package handler;
+package de.amrim.handler;
 
-import data.EventContext;
-import data.Participant;
+import de.amrim.data.EventContext;
+import de.amrim.data.Participant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.simplejavamail.api.email.Email;
@@ -10,7 +10,7 @@ import org.simplejavamail.api.mailer.config.TransportStrategy;
 import org.simplejavamail.config.ConfigLoader;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.MailerBuilder;
-import util.AppProperties;
+import de.amrim.util.AppProperties;
 
 import java.util.List;
 
