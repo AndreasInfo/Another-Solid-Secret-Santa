@@ -1,8 +1,7 @@
-import handler.ConstraintsHandler;
-import handler.ParticipantsHandler;
+import data.EventContext;
+import handler.MailHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import data.EventContext;
 import process.EventCreationChain;
 
 
@@ -18,11 +17,12 @@ public class Main {
         EventContext context = new EventContext();
 
         EventCreationChain chain = new EventCreationChain();
-        chain.addStep(new ParticipantsHandler());
-        chain.addStep(new ConstraintsHandler());
+//        chain.addStep(new ParticipantsHandler());
+//        chain.addStep(new ConstraintsHandler());
 //        chain.addStep(new LocationHandler());
 //        chain.addStep(new DateHandler());
 //        chain.addStep(new BudgetHandler());
+        chain.addStep(new MailHandler());
 
         chain.execute(context);
 
