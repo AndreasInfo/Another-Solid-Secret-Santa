@@ -31,3 +31,5 @@ bin/
 ### Custom ###
 /target/
 /.idea/
+/.gradle/
+/build/
