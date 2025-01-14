@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventContext {
-    private static final Logger LOG = LogManager.getLogger();
+    private static final Logger LOG = LogManager.getLogger(EventContext.class);
 
     private final List<Participant> participants = new ArrayList<>();
     private final List<Constraint> constraints = new ArrayList<>();

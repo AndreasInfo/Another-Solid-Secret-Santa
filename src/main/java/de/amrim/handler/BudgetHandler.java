@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BudgetHandler extends AbstractHandler {
-    private static final Logger LOG = LogManager.getLogger();
+    private static final Logger LOG = LogManager.getLogger(BudgetHandler.class);
 
     @Override
     public void handle(EventContext context) {

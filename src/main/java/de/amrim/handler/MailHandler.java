@@ -2,6 +2,7 @@ package de.amrim.handler;
 
 import de.amrim.data.EventContext;
 import de.amrim.data.Participant;
+import de.amrim.util.AppProperties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.simplejavamail.api.email.Email;
@@ -10,19 +11,18 @@ import org.simplejavamail.api.mailer.config.TransportStrategy;
 import org.simplejavamail.config.ConfigLoader;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.MailerBuilder;
-import de.amrim.util.AppProperties;
 
 import java.util.List;
 
 public class MailHandler extends AbstractHandler {
-    private static final Logger LOG = LogManager.getLogger();
+    private static final Logger LOG = LogManager.getLogger(MailHandler.class);
 
     @Override
     public void handle(EventContext context) {
-        String host = AppProperties.INSTANCE.get(ConfigLoader.Property.SMTP_HOST.key());
-        int port = Integer.parseInt(AppProperties.INSTANCE.get(ConfigLoader.Property.SMTP_PORT.key()));
-        String user = AppProperties.INSTANCE.get(ConfigLoader.Property.SMTP_USERNAME.key());
-        String pass = AppProperties.INSTANCE.get(ConfigLoader.Property.SMTP_PASSWORD.key());
+        String host = AppProperties.getInstance().get(ConfigLoader.Property.SMTP_HOST.key());
+        int port = Integer.parseInt(AppProperties.getInstance().get(ConfigLoader.Property.SMTP_PORT.key()));
+        String user = AppProperties.getInstance().get(ConfigLoader.Property.SMTP_USERNAME.key());
+        String pass = AppProperties.getInstance().get(ConfigLoader.Property.SMTP_PASSWORD.key());
         LOG.debug("host={}, port={}, user={}", host, port, user);
         try (Mailer mailer = MailerBuilder.withSMTPServerHost(host)
                 .withSMTPServerPort(port)

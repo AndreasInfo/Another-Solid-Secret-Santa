@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ShuffleStrategy implements SecretSantaStrategy {
-    private static final Logger LOG = LogManager.getLogger();
+    private static final Logger LOG = LogManager.getLogger(ShuffleStrategy.class);
     private static final int MAX_TRIES = 1000;
 
     public List<Participant> assign(List<Participant> participants, List<Constraint> constraints) {
