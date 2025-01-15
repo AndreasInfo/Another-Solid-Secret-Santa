@@ -11,7 +11,7 @@ public class ConstraintsHandler extends AbstractHandler {
 
     @Override
     public void handle(EventContext context) {
-        if (context.getParticipants().isEmpty()) {
+        if (context.getSecretSantas().isEmpty()) {
             throw new IllegalArgumentException("Participants must be added before adding constraints!");
         }
 
@@ -28,7 +28,7 @@ public class ConstraintsHandler extends AbstractHandler {
             }
         }
 
-        LOG.debug("Constraints added: {}", context.getConstraints());
+        LOG.info("Constraints added: {}", context.getConstraints());
     }
 
     private void addConstraint(EventContext context) {
@@ -67,7 +67,7 @@ public class ConstraintsHandler extends AbstractHandler {
 
             if (userInput.isEmpty()) {
                 System.out.println("Please provide a name!");
-            } else if (context.getParticipants().stream().noneMatch(participant -> participant.name().equals(userInput))) {
+            } else if (context.getSecretSantas().stream().noneMatch(participant -> participant.name().equals(userInput))) {
                 System.out.println("Name does not exist!");
             } else if (StringUtils.isNotBlank(exclude) && exclude.equals(userInput)) {
                 System.out.println("Same name chosen!");

@@ -1,35 +1,36 @@
 package de.amrim.data;
 
+import de.amrim.strategy.SecretSantaStrategy;
+import de.amrim.strategy.ShuffleStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import de.amrim.strategy.ShuffleStrategy;
-import de.amrim.strategy.SecretSantaStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class EventContext {
     private static final Logger LOG = LogManager.getLogger(EventContext.class);
 
-    private final List<Participant> participants = new ArrayList<>();
+    private final List<Participant> secretSantas = new ArrayList<>();
     private final List<Constraint> constraints = new ArrayList<>();
     private String location;
     private String date;
     private Double budget;
 
     private final SecretSantaStrategy strategy = new ShuffleStrategy();
-    private List<Participant> secretSantas = new ArrayList<>();
+    private List<Participant> recipients = new ArrayList<>();
 
     public EventContext() {
     }
 
-    public List<Participant> getParticipants() {
-        return new ArrayList<>(participants);
+    public List<Participant> getSecretSantas() {
+        return new ArrayList<>(secretSantas);
     }
 
-    public void addParticipant(Participant participant) {
-        participants.add(participant);
-        setSecretSantas(strategy.assign(getParticipants(), getConstraints()));
+    public void addSecretSanta(Participant participant) {
+        secretSantas.add(participant);
+        setRecipients(strategy.assign(getSecretSantas(), getConstraints()));
     }
 
     public List<Constraint> getConstraints() {
@@ -38,12 +39,12 @@ public class EventContext {
 
     public void addConstraint(Constraint constraint) {
         constraints.add(constraint);
-        setSecretSantas(strategy.assign(getParticipants(), getConstraints()));
+        setRecipients(strategy.assign(getSecretSantas(), getConstraints()));
 
-        if (isEmptySecretSantas()) {
+        if (hasNoResult()) {
             System.out.println("CAUTION: Removed last constraint, because could not assign Secret Santas!");
             constraints.removeLast();
-            setSecretSantas(strategy.assign(getParticipants(), getConstraints()));
+            setRecipients(strategy.assign(getSecretSantas(), getConstraints()));
         }
     }
 
@@ -71,37 +72,36 @@ public class EventContext {
         this.budget = budget;
     }
 
-    public List<Participant> getSecretSantas() {
-        return secretSantas;
+    public List<Participant> getRecipients() {
+        return recipients;
     }
 
-    public void setSecretSantas(List<Participant> secretSantas) {
-        this.secretSantas = secretSantas;
+    public void setRecipients(List<Participant> recipients) {
+        this.recipients = recipients;
     }
 
-    public boolean isEmptySecretSantas() {
-        return getSecretSantas().isEmpty();
+    public boolean hasNoResult() {
+        return getRecipients().isEmpty();
     }
 
-    public void printResult() {
-        if (isEmptySecretSantas()) {
+    public Participant getRecipientFor(Participant participant) {
+        if (hasNoResult()) {
             LOG.warn("No result present yet!");
-            return;
+            return null;
         }
 
-        for (int i=0; i < getParticipants().size(); i++) {
-            System.out.println(getSecretSantas().get(i) + " --> " + getParticipants().get(i));
-        }
-        System.out.println("Location:" + getLocation());
-        System.out.println("Date:" + getDate());
-        System.out.println("Budget:" + getBudget());
+        return IntStream.range(0, getSecretSantas().size())
+                .filter(i -> getSecretSantas().get(i).equals(participant))
+                .mapToObj(getRecipients()::get)
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Something went terribly wrong"));
     }
 
     @Override
     public String toString() {
         return String.format(
-                "EventContext(date=%s, location=%s, participants=%s, budget=%s)",
-                date, location, participants, budget
+                "EventContext(secretSantas=%s, recipients=%s, constraints=%s, location=%s, date=%s, budget=%s)",
+                secretSantas, recipients, constraints, location, date, budget
         );
     }
 }

@@ -13,18 +13,19 @@ public class ShuffleStrategy implements SecretSantaStrategy {
     private static final Logger LOG = LogManager.getLogger(ShuffleStrategy.class);
     private static final int MAX_TRIES = 1000;
 
-    public List<Participant> assign(List<Participant> participants, List<Constraint> constraints) {
-        if (participants.size() < 2) {
+    @Override
+    public List<Participant> assign(List<Participant> secretSantas, List<Constraint> constraints) {
+        if (secretSantas.size() < 2) {
             LOG.warn("Not enough participants for Secret Santa!");
             return List.of();
         }
 
-        List<Participant> secretSantas = new ArrayList<>(participants);
+        List<Participant> recipients = new ArrayList<>(secretSantas);
         for (int i = 0; i < MAX_TRIES; i++) {
-            Collections.shuffle(secretSantas);
-            if (validateSecretSantas(participants, secretSantas, constraints)) {
+            Collections.shuffle(recipients);
+            if (validateSecretSantas(secretSantas, recipients, constraints)) {
                 LOG.debug("Assigned Secret Santa after {} tries!", i + 1);
-                return secretSantas;
+                return recipients;
             }
         }
 
@@ -32,29 +33,29 @@ public class ShuffleStrategy implements SecretSantaStrategy {
         return List.of();
     }
 
-    private boolean validateSecretSantas(List<Participant> participants, List<Participant> secretSantas, List<Constraint> constraints) {
-        for (int i=0; i < secretSantas.size(); i++) {
-            String santa = secretSantas.get(i).name();
-            String participant = participants.get(i).name();
+    private boolean validateSecretSantas(List<Participant> secretSantas, List<Participant> recipients, List<Constraint> constraints) {
+        for (int i=0; i < recipients.size(); i++) {
+            String recipient = recipients.get(i).name();
+            String secretSanta = secretSantas.get(i).name();
 
-            // secretSanta and participant are the same
-            if (santa.equals(participant)) {
+            // secretSanta and recipient are the same
+            if (recipient.equals(secretSanta)) {
                 return false;
             }
 
             // constraint IS_SANTA_FOR
             List<Constraint> isSantaForConstraints = constraints.stream()
-                    .filter(constraint -> constraint.nameA().equals(santa) && constraint.type() == Constraint.Type.IS_SANTA_FOR)
+                    .filter(constraint -> constraint.nameA().equals(secretSanta) && constraint.type() == Constraint.Type.IS_SANTA_FOR)
                     .toList();
-            if (isSantaForConstraints.stream().anyMatch(constraint -> !constraint.nameB().equals(participant))) {
+            if (isSantaForConstraints.stream().anyMatch(constraint -> !constraint.nameB().equals(recipient))) {
                 return false;
             }
 
             // constraint IS_NO_SANTA_FOR
             List<Constraint> isNoSantaForConstraints = constraints.stream()
-                    .filter(constraint -> constraint.nameA().equals(santa) && constraint.type() == Constraint.Type.IS_NO_SANTA_FOR)
+                    .filter(constraint -> constraint.nameA().equals(secretSanta) && constraint.type() == Constraint.Type.IS_NO_SANTA_FOR)
                     .toList();
-            if (isNoSantaForConstraints.stream().anyMatch(constraint -> constraint.nameB().equals(participant))) {
+            if (isNoSantaForConstraints.stream().anyMatch(constraint -> constraint.nameB().equals(recipient))) {
                 return false;
             }
         }

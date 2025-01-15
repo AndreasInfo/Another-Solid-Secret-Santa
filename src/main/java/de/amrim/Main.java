@@ -32,6 +32,6 @@ public class Main {
 
         chain.execute(context);
 
-        context.printResult();
+        System.out.println(context);
     }
 }

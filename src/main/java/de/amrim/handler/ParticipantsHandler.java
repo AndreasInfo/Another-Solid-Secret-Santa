@@ -11,7 +11,7 @@ public class ParticipantsHandler extends AbstractHandler {
     @Override
     public void handle(EventContext context) {
         // Add minimum participants
-        while (context.isEmptySecretSantas()) {
+        while (context.hasNoResult()) {
             addParticipant(context);
         }
 
@@ -29,7 +29,7 @@ public class ParticipantsHandler extends AbstractHandler {
             }
         }
 
-        LOG.debug("Participants added: {}", context.getParticipants());
+        LOG.info("Participants added: {}", context.getSecretSantas());
     }
 
     private void addParticipant(EventContext context) {
@@ -38,7 +38,7 @@ public class ParticipantsHandler extends AbstractHandler {
         String name = askForName(context);
         String mail = askForMail();
 
-        context.addParticipant(new Participant(name, mail));
+        context.addSecretSanta(new Participant(name, mail));
     }
 
 
@@ -49,7 +49,7 @@ public class ParticipantsHandler extends AbstractHandler {
 
             if (userInput.isEmpty()) {
                 System.out.println("Please provide a name!");
-            } else if (context.getParticipants().stream().anyMatch(participant -> participant.name().equals(userInput))) {
+            } else if (context.getSecretSantas().stream().anyMatch(participant -> participant.name().equals(userInput))) {
                 System.out.println("Name already exists!");
             } else {
                 return userInput;
