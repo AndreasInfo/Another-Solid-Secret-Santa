@@ -29,6 +29,7 @@ public class Main {
         chain.addStep(new DateHandler());
         chain.addStep(new BudgetHandler());
         chain.addStep(new MailHandler());
+        chain.addStep(new ResultHandler());
 
         chain.execute(context);
 

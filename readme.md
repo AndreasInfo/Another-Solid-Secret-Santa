@@ -22,5 +22,4 @@ simplejavamail.smtp.password=blu
 
 ### Todo
 
-- safe event
 - go one step back
