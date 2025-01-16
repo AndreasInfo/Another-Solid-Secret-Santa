@@ -7,18 +7,21 @@ the restrictions IS_SANTA_FOR and IS_NO_SANTA_FOR is as minimalistic and pure as
 Technical speaking I chose chain of responsibility pattern to control the flow and strategy pattern for different
 strategies. If you come up with a better or different algorithm, feel to add it.
 
+### Build
+
+Clone repo and run `gradlew clean build`.
+
 ### Usage
 
-Run:
+Run `java -jar another-solid-secret-santa-1.0-SNAPSHOT.jar` and provide app.properties in the directory where the
+command is run including the following properties:
 
-java -jar another-solid-secret-santa-1.0-SNAPSHOT.jar
-
-and provide app.properties in the directory where the command is run including the following properties:
-
+```
 simplejavamail.smtp.host=smtp.bla.bli
 simplejavamail.smtp.port=123
 simplejavamail.smtp.username=blo
 simplejavamail.smtp.password=blu
+```
 
 ### Todo
 
